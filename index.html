@@ -104,8 +104,11 @@ const API_URL='https://script.google.com/macros/s/AKfycbyMp8mxWOc522TOveGnRctQrM
 let db;
 try{db=JSON.parse(localStorage.getItem(STORE))||structuredClone(INITIAL)}catch(e){db=JSON.parse(JSON.stringify(INITIAL))}
 let activeGroup='A';
-function persist(){localStorage.setItem(STORE,JSON.stringify(db));renderAll();pushRemoteData()}
-function normalizeRemoteData(data){if(!data||!Array.isArray(data.teams)||!Array.isArray(data.matches))return false;if(!data.players)data.players=[];if(!data.events)data.events=[];if(!data.settings)data.settings={};return true}
+function persist(){
+  localStorage.setItem(STORE,JSON.stringify(db));
+  renderAll();
+  pushRemoteData();
+}function normalizeRemoteData(data){if(!data||!Array.isArray(data.teams)||!Array.isArray(data.matches))return false;if(!data.players)data.players=[];if(!data.events)data.events=[];if(!data.settings)data.settings={};return true}
 function loadRemoteData(){
   const script=document.createElement('script');
   script.src=API_URL+'?callback=hldmReceiveData&_='+Date.now();
